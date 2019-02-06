@@ -34,20 +34,43 @@ function resizeDiv() {
 }
 
 
-const formSubmit = document.querySelector('form input[type=submit]');
-formSubmit.addEventListener('click', submitClick);
+// const formSubmit = document.querySelector('form input[type=submit]');
+// formSubmit.addEventListener('click', submitClick);
 
-function submitClick(e) {
+// function submitClick(e) {
+//     e.preventDefault();
+//     const textInput = document.getElementById('commentText');
+//     const par = document.createElement('p');
+//     par.textContent = textInput.value;
+//     const commentContainer = document.querySelector('.comment-container');
+//     commentContainer.appendChild(par);
+//     textInput.value = '';
+// }
+
+$('.submit-button').click(function(e){
     e.preventDefault();
-    const textInput = document.getElementById('commentText');
-    const par = document.createElement('p');
-    par.textContent = textInput.value;
-    const commentContainer = document.querySelector('.comment-container');
-    commentContainer.appendChild(par);
-    textInput.value = '';
-}
+    const text = `<p>${$('#commentText').val()}</p>`;
+    $('.comment-container').append(text);
+    $('#commentText').val('').hide(5000);
+})
+
 
 const clockContainer = document.querySelector('.clock');
 setInterval(function() {
     clockContainer.innerText = (new Date()).toLocaleTimeString();
 }, 10);
+
+
+const display = document.querySelector('.calculator input[name=display]');
+
+document.querySelectorAll('.digits, .opers')
+ .forEach( btn => btn.addEventListener('click', digitOperPressed) );
+ 
+function digitOperPressed(e) {
+    display.value += e.target.innerText;
+}
+
+document.querySelector('.result')
+    .addEventListener('click', function(){
+        display.value = eval(display.value);       
+    })
